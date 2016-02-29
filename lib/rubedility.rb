@@ -1,8 +1,13 @@
+require 'rubedility/lesson'
+require 'rubedility/task'
+require 'rubedility/scraper'
+
 class Rubedility
 
   def initialize
-    scrape_lessons
-    scrape_tasks
+    scrape_index
+    #scrape_lessons
+    #scrape_tasks
     display_greeting
     display_menu
   end
@@ -24,6 +29,10 @@ class Rubedility
     puts "You can 'list <things>'"
   end
 
+  def scrape_index
+    Lesson.populate_from_scraping(Scraper.scrape_index_page('https://codility.com/programmers/lessons/'))
+  end
+
   def scrape_lessons
     Lesson.new
   end
@@ -33,6 +42,3 @@ class Rubedility
   end
 
 end
-
-require 'rubedility/lesson'
-require 'rubedility/task'
