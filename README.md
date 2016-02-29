@@ -8,9 +8,9 @@ Rubygem that allows a user to navigate and browse Codility.com's lessons and qui
 
 ## Dependencies
 
-`openurl'/`open-uri`
-`nokogiri`
-`launchy`
+* `openurl`/`open-uri`
+* `nokogiri`
+* `launchy`
 
 ## Functionality
 
