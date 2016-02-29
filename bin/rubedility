@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+
+require 'rubedility'
+
+Rubedility.new
+puts "We've started!"
