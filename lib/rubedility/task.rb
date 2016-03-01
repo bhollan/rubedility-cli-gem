@@ -1,7 +1,7 @@
 class Rubedility::Task
-  attr_accessor :name, :difficulty, :content
+  attr_accessor :name, :difficulty, :content, :task_url, :task_reading_url, :task_tagline
 
-  def initialize
+  def initialize(task_row)
     puts "we've nor instantiated a task!"
   end
 
