@@ -29,6 +29,7 @@ class Difficulty
       diff.display_tasks
       puts "=======================\n"
     end
+    puts "\n"
   end
 
   def self.find_or_create(task_difficulty)

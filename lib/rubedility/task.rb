@@ -31,9 +31,30 @@ class Rubedility::Task
     @@all
   end
 
+  def self.user_display_one
+    print "Enter Task Name:"
+    input = gets.strip.downcase
+    self.all.each do |task|
+      if task.name.downcase==input
+        task.display_content
+        return nil
+      end
+    end
+    self.display_all
+    puts "Try better next time."
+  end
+
   def display_row
     puts "=#{self.name}= (#{self.difficulty})"
     puts "#{self.tagline}\n\n"
+  end
+
+  def display_content
+    puts "========================================="
+    puts "==========#{self.name}=========="
+    puts "========================================="
+    puts "Difficulty: #{self.difficulty}"
+    puts @content
   end
 
   def self.display_all

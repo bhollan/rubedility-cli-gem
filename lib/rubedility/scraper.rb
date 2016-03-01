@@ -31,10 +31,13 @@ class Scraper
       task_hashes_array = []
       lesson.css("div.task-box").each do |task_row|
         name = task_row.css("h4.title").text.strip
-        task_url = task_row.css("a").attr("href").text.split("/").last
+        #url is just the last 'piece' of the task URL
+        url = task_row.css("a").attr("href").text
+        #have to add that to the end of the 'real' URL, but take off part of it
+        task_url = lesson_url.split("/")[0..2].join("/").concat(url)
         difficulty = task_row.css("div.difficulty").text.strip
         tagline = task_row.css("div.synopsis").text.strip
-        task_hashes_array.push({:name=>name, :task_url=>task_url, :difficulty=>difficulty, :tagline=>tagline})
+        task_hashes_array.push({:name=>name, :task_url=>task_url, :difficulty=>difficulty, :tagline=>tagline, :task_reading_url=>reading_url})
       end
       lesson_details = {:reading_url=>reading_url, :tests_started=>tests_started, :tests_solved=>tests_solved}
       #return [hash-of-lesson-details, array-of-task-detail-hashes]
@@ -52,7 +55,14 @@ class Scraper
     print "."
     begin
       task = Nokogiri::HTML(open(task_url))
-      binding.pry
+      content = task.css("div.desc-rb-en div").first.text
+      #the way they have the content is not best for command line display.
+      #some '\n' and some '\n\n', command line looks better with '\n\n'
+      #substitube singles for doubles
+      content.gsub!(/[\n]+/,"\n")
+      #substitute doubles for singles
+      content.gsub!(/[\n]/,"\n\n")
+      return {:content=>content}
     rescue OpenURI::HTTPError => er
       puts "404'd!"
       puts task_url

@@ -49,9 +49,9 @@ class Rubedility::Lesson
     return nil
   end
 
-  def user_display_stats
+  def self.user_display_stats
     self.display_all
-    print "Select Lesson Number:"
+    print "Select Lesson Number for stats:"
     input = gets.strip.to_i
     self.all.each do |lesson|
       if lesson.number==input
@@ -63,9 +63,27 @@ class Rubedility::Lesson
   end
 
   def display_stats
-    puts "#{self.tests_started} tests have been started from this lesson."
+    puts "\n#{self.tests_started} tests have been started from this lesson."
     puts "#{self.tests_solved} tests have been solved from this lesson."
-    puts "with #{self.tasks.length} task(s) in this lesson, that gives an average success rate for this lessons tasks of #{self.tests_solved/self.tests_started}"
+    puts "#{self.tasks.length} task(s) gives an average success rate of #{(self.tests_solved.to_f/self.tests_started.to_f).round(3)*100}%"
+  end
+
+  def self.user_open_reading
+    self.display_all
+    print "Select Lesson Number for reading:"
+    input = gets.strip.to_i
+    self.all.each do |lesson|
+      if lesson.number==input
+        #lesson.open_reading
+        return lesson.reading_url
+      end
+    end
+    return "Try selecting a correct number next time."
+  end
+
+  def open_reading
+    puts "launchy: #{@reading_url}"
+    launchy @reading_url
   end
 
   def add_tasks(task_array)
@@ -86,4 +104,3 @@ class Rubedility::Lesson
   end
 
 end
-

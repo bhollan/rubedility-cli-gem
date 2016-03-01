@@ -1,9 +1,11 @@
+require 'launchy'
+
 class Rubedility
 
   def initialize
     scrape_index
     scrape_lessons
-    #scrape_tasks
+    scrape_tasks
     display_greeting
     #display_menu (menu will display from the 'while' loop below)
   end
@@ -21,23 +23,22 @@ class Rubedility
         Lesson.display_all
 
       when "list tasks"
-        puts Task.display_all
+        Task.display_all
 
       when "list stats"
-        puts "LESSON STATS"
+        Lesson.user_display_stats
 
       when "open lesson"
         Lesson.user_display_one
 
       when "open task"
-        puts "TASK OPENER"
+        Task.user_display_one
 
       when "list by difficulty"
-        puts "DIFFICULTIES"
         Difficulty.display_all
 
       when "open reading"
-        puts "READING OPENER"
+        Launchy.open(Lesson.user_open_reading)
 
       else
         display_menu
@@ -66,7 +67,8 @@ class Rubedility
 
   def scrape_tasks
     print "fetching tasks  ..."
-    Tasks.all.each do |task|
+    Task.all.each do |task|
+      task.add_task_attributes(Scraper.scrape_task_page(task.task_url))
     end
   end
 
