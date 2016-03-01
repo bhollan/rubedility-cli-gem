@@ -1,18 +1,15 @@
 class Rubedility::Task
-  attr_accessor :name, :difficulty, :content, :task_url, :task_reading_url, :task_tagline
+  attr_accessor :name, :difficulty, :content, :task_url, :task_reading_url, :tagline
 
   def initialize(task_row)
-    puts "we've nor instantiated a task!"
+    add_task_attributes(task_row)
+    @@all.push(self)
   end
 
   @@all = []
 
-  def initialize
-    @@all.push(self)
-  end
-
-  def self.create_from_collection(tasks_hash)
-    tasks_hash.each do |task|
+  def self.create_from_collection(task_hash)
+    task_hash.each do |task|
       Task.new(task)
     end
   end
@@ -26,6 +23,15 @@ class Rubedility::Task
 
   def self.all
     @@all
+  end
+
+  def self.display_all
+    puts "\nAvailable Tasks: \n"
+    self.all.each do |task|
+      puts "=#{task.name}= (#{task.difficulty})"
+      puts "#{task.tagline}\n\n"
+    end
+    return nil
   end
 end
 

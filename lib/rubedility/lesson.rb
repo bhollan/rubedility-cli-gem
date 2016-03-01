@@ -5,6 +5,7 @@ class Rubedility::Lesson
 
   def initialize(lesson_hash)
     add_lesson_attributes(lesson_hash)
+    @tasks = []
     @@all.push(self)
   end
 
@@ -21,7 +22,7 @@ class Rubedility::Lesson
   end
 
   def self.display_all
-    puts "Available Lessons: \n"
+    puts "\nAvailable Lessons: \n"
     self.all.each do |les|
       #puts "#{les.number}. #{les.name} (#{((les.tests_solved.to_f)/(les.tests_started.to_f)).round(2)}%)"
       puts "#{les.number}. #{les.name}"
@@ -31,7 +32,7 @@ class Rubedility::Lesson
 
   def add_tasks(task_array)
     task_array.each do |task_row|
-      self.tasks.push(Task.new(task_row))
+      self.tasks.push(Rubedility::Task.new(task_row))
     end
   end
 
