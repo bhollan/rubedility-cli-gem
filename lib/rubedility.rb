@@ -15,21 +15,33 @@ class Rubedility
   def run(commands=nil)
     input = ""
     until input=="exit" || input=="quit" || input=="close"
+
       case input
-      when "list lessons" || "show lessons"
-        puts Lesson.display_all
-      when "list tasks" || "show tasks"
+      when "list lessons"
+        Lesson.display_all
+
+      when "list tasks"
         puts Task.display_all
-      when "list stats" || "show stats"
+
+      when "list stats"
         puts "LESSON STATS"
-      when "open lesson" || "list lesson"
-        puts "LESSON OPENER"
-      when "open task" || "list task"
+
+      when "open lesson"
+        Lesson.user_display_one
+
+      when "open task"
         puts "TASK OPENER"
-      when "open reading" || "list reading"
+
+      when "list by difficulty"
+        puts "DIFFICULTIES"
+        Difficulty.display_all
+
+      when "open reading"
         puts "READING OPENER"
+
       else
         display_menu
+
       end
       input = gets.strip
     end
@@ -64,7 +76,7 @@ class Rubedility
   end
 
   def display_menu
-    puts "Commands: '<list/open> <lesson(s)/task(s)/stats/reading>', 'exit'"
+    puts "Commands: '<list/open> <lesson(s)/task(s)/stats/reading>', 'list by difficulty', 'exit'"
     #puts "Commands: 'list lessons', 'open lesson', 'list tasks', 'open task', 'list stats', 'open reading', 'exit'"
   end
 
@@ -73,3 +85,4 @@ end
 require 'rubedility/lesson'
 require 'rubedility/task'
 require 'rubedility/scraper'
+require 'rubedility/difficulty'
