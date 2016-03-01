@@ -54,6 +54,8 @@ class Rubedility
 
   def scrape_tasks
     print "fetching tasks  ..."
+    Tasks.all.each do |task|
+    end
   end
 
   def display_greeting
